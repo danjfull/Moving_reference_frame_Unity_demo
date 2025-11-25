@@ -13,7 +13,15 @@ public class Car : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        if(MenuManager.IsMenuOpen())
+        {
+            rb.isKinematic = true; // pause
+            return;
+        }
+        else
+        {
+            rb.isKinematic = false;
+        }
         Vector3 move = transform.forward;
         //rb.MovePosition(rb.position + move * speed * Time.fixedDeltaTime);
 

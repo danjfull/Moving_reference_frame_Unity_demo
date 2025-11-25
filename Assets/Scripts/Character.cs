@@ -22,6 +22,8 @@ public class Character : MonoBehaviour
         if (inputActions == null)
             return;
         inputActions.FindActionMap("Player").Enable();
+        m_move = InputSystem.actions.FindAction("Move");
+        m_jet = InputSystem.actions.FindAction("Jump");
     }
 
     public void OnDisable()
@@ -42,13 +44,20 @@ public class Character : MonoBehaviour
 
     private void FixedUpdate()
     {
-        m_move = InputSystem.actions.FindAction("Move");
-        m_jet = InputSystem.actions.FindAction("Jump");
+        if (MenuManager.IsMenuOpen())
+        {
+            rb.isKinematic = true; // pause
+            return;
+        }
+        else
+        {
+            rb.isKinematic = false;
+        }
         Vector2 moveInput = m_move.ReadValue<Vector2>();
         Vector3 move = rb.rotation * new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
         // player walks on what is underneath them, if it is present
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hitInfo, 1.5f))
+        if (Physics.SphereCast(transform.position, 0.5f, Vector3.down, out RaycastHit hitInfo, 1.5f))
         {
             // get velocity of what is under player
             Vector3 floorVelocity = hitInfo.rigidbody != null ? hitInfo.rigidbody.GetPointVelocity(hitInfo.point) : Vector3.zero;

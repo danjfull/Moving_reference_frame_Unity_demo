@@ -25,7 +25,9 @@ Instructions for using the software:
 To recreate the development environment, you need the following software and/or libraries with the specified versions:
 
 * Unity 6.2 Game Engine (installed via [Unity Hub](https://unity.com/download). Currently Unity 6.2 is automatically installed when Unity Hub is first launched). Note that paid licensing may be required if your organization makes more than $200k in profits per year.
-* [Blender 5.0](https://www.blender.org/download/). This is a free to use software
+* [Blender 5.0](https://www.blender.org/download/). This is a free to use software for 3D modeling. Behind the scenes, Unity has blender convert its .blend files into FBX files that Unity then can read into its system.
+* [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) (this is for using and compiling C# code in Unity).
+* [Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/), with the package Game Development with Unity.
 
 ## Useful Websites to Learn More
 

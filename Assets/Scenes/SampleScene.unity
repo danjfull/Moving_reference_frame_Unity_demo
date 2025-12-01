@@ -1699,7 +1699,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.375
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -1783,7 +1783,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 422555875}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 80
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1799,7 +1799,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 2
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!114 &422555881
@@ -1815,9 +1815,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   inputActions: {fileID: 0}
-  maxSpeed: 10
-  maxForce: 50
-  jumpForce: 20
+  maxSpeed: 12
+  maxForce: 2000
+  jumpImpulse: 8000
+  jetForce: 0
 --- !u!1 &489662013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2354,7 +2355,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.25
   far clip plane: 3000
   field of view: 60
   orthographic: 0
@@ -2431,7 +2432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   inputActions: {fileID: 0}
-  lookSensitivity: 0
+  playerLookSensitivity: 0
 --- !u!1 &813106919
 GameObject:
   m_ObjectHideFlags: 0
@@ -5128,6 +5129,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 194045589}
     m_Modifications:
+    - target: {fileID: 3701198347051987875, guid: 7080fd7fa13dbba4e8330d5f84d6d301, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8604395805064256374, guid: 7080fd7fa13dbba4e8330d5f84d6d301, type: 3}
       propertyPath: m_Name
       value: Large_Car_Prefab

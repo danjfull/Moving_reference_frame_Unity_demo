@@ -13,9 +13,10 @@ public class Character : MonoBehaviour
 
     private Rigidbody rb;
 
-    public float maxSpeed = 12f;
-    public float maxForce = 50f;
-    public float jumpForce = 20f;
+    public float maxSpeed;
+    public float maxForce;
+    public float jumpImpulse;
+    public float jetForce;
 
     public void OnEnable()
     {
@@ -57,21 +58,23 @@ public class Character : MonoBehaviour
         Vector3 move = rb.rotation * new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
         // player walks on what is underneath them, if it is present
-        if (Physics.SphereCast(transform.position, 0.5f, Vector3.down, out RaycastHit hitInfo, 1.5f))
+        bool feetTouch = false;
+        if (Physics.SphereCast(transform.position, 0.25f, Vector3.down, out RaycastHit hitInfo, 1.25f))
         {
             // get velocity of what is under player
             Vector3 floorVelocity = hitInfo.rigidbody != null ? hitInfo.rigidbody.GetPointVelocity(hitInfo.point) : Vector3.zero;
-            if (Vector3.Dot(hitInfo.normal.normalized, transform.up.normalized) < 0.33f) // they can only walk on relatively flat areas
+            if (Vector3.Dot(hitInfo.normal.normalized, transform.up.normalized) > 0.33f) // they can only walk on relatively flat areas
             {
                 Quaternion groundRotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal);
                 move = groundRotation * move; // allows player to move up slopes
             }
+            feetTouch = true;
             // now only move up to a max relative velocity
             Vector3 relativeVelocity = rb.linearVelocity - floorVelocity;
             if (move.magnitude > 0.001f) // if player is trying to move
             {
                 Vector3 planedVelocity = Vector3.ProjectOnPlane(relativeVelocity, hitInfo.normal);
-                rb.AddForce((move.normalized * maxSpeed - relativeVelocity) * maxForce); // desired velocity is reached with diminishing additional force as player runs faster
+                rb.AddForce((move.normalized * maxSpeed - planedVelocity) * maxForce); // desired velocity is reached with diminishing additional force as player runs faster
 
                 if (planedVelocity.magnitude < 3.0f && move.magnitude > 0.5f) // if character is trying to walk, but isn't...
                 {
@@ -83,7 +86,7 @@ public class Character : MonoBehaviour
             {
                 // Try to stop moving
                 Vector3 horizontalVelocity = Vector3.ProjectOnPlane(relativeVelocity, hitInfo.normal);
-                rb.AddForce(-horizontalVelocity * maxForce); // apply a braking force to stop the character
+                rb.AddForce(-horizontalVelocity * maxForce*0.75f); // apply a braking force to stop the character
             }
         }
         else
@@ -91,10 +94,18 @@ public class Character : MonoBehaviour
             rb.AddForce(move.normalized * maxForce * 0.1f); // in air, apply a much smaller amount of control
         }
 
-        // jet/jump
+        // jet
         if (m_jet.IsPressed())
         {
-            rb.AddForce(rb.rotation * Vector3.up * jumpForce); // apply upward force when jump is pressed
+            rb.AddRelativeForce(Vector3.up * jetForce); // apply upward force continuously
+        }
+        // jump
+        if (m_jet.WasPressedThisFrame())
+        {
+            if (feetTouch) // must be on the ground
+            {
+                rb.AddRelativeForce(Vector3.up * jumpImpulse);
+            }   
         }
 
         // limits

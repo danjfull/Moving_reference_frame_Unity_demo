@@ -18,6 +18,7 @@ public class Character : MonoBehaviour
     public float jumpImpulse;
     public float jetForce;
 
+    // Controls enable/disable
     public void OnEnable()
     {
         if (inputActions == null)
@@ -34,7 +35,6 @@ public class Character : MonoBehaviour
         inputActions.FindActionMap("Player").Disable();
     }
 
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         m_move = InputSystem.actions.FindAction("Move");
@@ -43,6 +43,7 @@ public class Character : MonoBehaviour
 
     }
 
+    // physics update
     private void FixedUpdate()
     {
         if (MenuManager.IsMenuOpen())
@@ -75,12 +76,6 @@ public class Character : MonoBehaviour
             {
                 Vector3 planedVelocity = Vector3.ProjectOnPlane(relativeVelocity, hitInfo.normal);
                 rb.AddForce((move.normalized * maxSpeed - planedVelocity) * maxForce); // desired velocity is reached with diminishing additional force as player runs faster
-
-                if (planedVelocity.magnitude < 3.0f && move.magnitude > 0.5f) // if character is trying to walk, but isn't...
-                {
-                    //apply a pushing force, as the character is essentially planting their feet.
-                    //rb.AddForce(move.normalized * maxForce * 4.0f); // add up to 5x total pushing power
-                }
             }
             else
             {
@@ -106,12 +101,6 @@ public class Character : MonoBehaviour
             {
                 rb.AddRelativeForce(Vector3.up * jumpImpulse);
             }   
-        }
-
-        // limits
-        if (rb.angularVelocity.magnitude > 5f)
-        {
-            rb.angularVelocity = rb.angularVelocity.normalized * 5f; // enforce a max angular rotation speed
         }
     }
 }

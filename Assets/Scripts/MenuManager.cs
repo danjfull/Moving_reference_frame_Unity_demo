@@ -28,12 +28,16 @@ public class MenuManager : MonoBehaviour
         inputActions.FindActionMap("Player").Disable();
     }
 
-    void Awake()
+    private void Awake()
     {
         instance = this;
         isMenuOpen = true;
-        EnableMenu(); // this opens the menu at start, so you don't have to see it while in the editor
         menu_command = InputSystem.actions.FindAction("Menu");
+    }
+
+    void Start()
+    {
+        EnableMenu(); // this opens the menu at start, so you don't have to see it while editing the scene
     }
 
     private void Update()

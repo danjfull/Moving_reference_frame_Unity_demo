@@ -2,7 +2,7 @@
 
 This project functions as a demonstration of the benefit of using kinematic physics principles (forces) to move a character/vehicle around in 3-Dimensional space. This is in opposition to controlling the character/vehicle motion by explicitly setting the 3D position of the character/vehicle. Using physics allows the character to move around normally on a moving/accelerating platform (such as while inside a large moving vehicle), and their transition between the vehicle and non-moving surface also follows realistic behavior.
 
-This project has a moving reference frame that is a large car. The user is encouraged to move the character around inside or on top of the vehicle while it is moving and also transition between the vehicle and the surface to see these physics principles demonstrated.
+This project has a moving reference frame that is a large car. The user is encouraged to move the character around inside of the vehicle while it is moving and also transition between the vehicle and the surface to see these physics principles demonstrated.
 
 The character can jump and move around in 3-Dimensional Space, under the influence of gravity.
 
@@ -19,7 +19,7 @@ Steps to build and/or run the software:
 
 Instructions for using the software:
 
-1. The game starts with the pause menu open. This menu can be closed by pressing 'M' key or the 'esc' key. It can be reopened at any time using the same controls. Using the cursor, the user can adjust (by dragging the slider) the character's angle change sensitivity at any point during the game using this menu. When the menu is open, the game is paused. Some physics simulation aspects may continue to operate during this time.
+1. The game starts with the pause menu open. Select the screen to bring it into focus, and then follow the on-screen instructions. This menu can be closed by pressing 'M' key or the 'esc' key. It can be reopened at any time using the same controls. Using the cursor, the user can adjust (by dragging the slider) the character's angle change sensitivity at any point during the game using this menu. When the menu is open, the game is paused. Some physics simulation aspects may continue to operate during this time.
 2. Use cursor and WASD arrow keys to look and move around, respectively. Press and hold SPACEBAR to apply an impulse that will push the character up into the air by about a meter before gravity pulls them back down. This game uses an input system that may also work with a controller, but such has not been tested extensively.
 3. A moving vehicle is included, which starts accelerating as soon as the game starts. The character can jump inside it's open back area and move up to the top floor of the vehicle while it is still moving. The character will move relative to the vehicle as if the vehicle's internal floors were stationary.
 
